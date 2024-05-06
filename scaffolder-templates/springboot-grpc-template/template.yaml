@@ -39,7 +39,7 @@ spec:
           ui:field: OwnerPicker
           ui:options:
             allowedKinds:
-              - User
+              - Group
     - title: Choose a location
       required:
         - repoUrl
