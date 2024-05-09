@@ -22,10 +22,10 @@ build-job:       # Example of standard job for my application
     - echo "Compile complete."
     - mvn -B package --file pom.xml
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master" && $DEFAULT_JOB == "true"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
 
 deploy-job:      # This job runs in the deploy stage.
-  stage: deploy
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   environment: production
   script:
     - echo "Deploying application..."
@@ -33,14 +33,14 @@ deploy-job:      # This job runs in the deploy stage.
   rules:
     - if: $DEFAULT_JOB == "true"
 
-start-job:
+start-job:           # Job example for a specific behavior*
   stage: start
   script:
     - echo "start job..."
   rules:
     - if: $START_JOB == "true"
 
-stop-job:
+stop-job:       # Job example for a specific behavior*
   stage: stop
   script:
     - echo "stop job..."
