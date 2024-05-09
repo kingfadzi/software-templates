@@ -1,0 +1,50 @@
+stages:
+  - build
+  - deploy
+  - start
+  - stop
+
+variables:
+  DEFAULT_JOB: 'false'
+  START_JOB: 'false'
+  STOP_JOB: 'false'
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository/
+
+build-job:       # Example of standard job for my application
+  stage: build
+  image: maven:3.8.4-openjdk-17
+  script:
+    - echo "Compiling the code..."
+    - echo "Compile complete."
+    - mvn -B package --file pom.xml
+  only:
+    - master
+  rules:
+    - if: $DEFAULT_JOB == "true"
+
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
+  script:
+    - echo "Deploying application..."
+    - echo "Application successfully deployed."
+  rules:
+    - if: $DEFAULT_JOB == "true"
+
+start-job:           # Job example for a specific behavior*
+  stage: start
+  script:
+    - echo "start job..."
+  rules:
+    - if: $START_JOB == "true"
+
+stop-job:       # Job example for a specific behavior*
+  stage: stop
+  script:
+    - echo "stop job..."
+  rules:
+    - if: $STOP_JOB == "true"
