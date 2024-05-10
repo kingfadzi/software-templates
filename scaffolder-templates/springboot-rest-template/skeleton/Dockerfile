@@ -1,4 +1,4 @@
-FROM openjdk:11-alpine
+FROM openjdk:17
 ENTRYPOINT ["/usr/bin/${{values.artifact_id}}.sh"]
 
 COPY ${{values.artifact_id}}.sh /usr/bin/${{values.artifact_id}}.sh

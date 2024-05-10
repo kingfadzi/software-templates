@@ -1,5 +1,6 @@
 stages:
   - build
+  - push
   - deploy
   - start
   - stop
@@ -9,38 +10,66 @@ variables:
   START_JOB: 'false'
   STOP_JOB: 'false'
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  OPENSHIFT_SERVER: "https://api.ocp4.butterflycluster.com:6443"
+  OPENSHIFT_PROJECT: "$CI_COMMIT_REF_SLUG"
+  APP_NAME: "${CI_PROJECT_NAME}"
+  DOCKER_IMAGE: "${CI_PROJECT_PATH}:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
 
 cache:
   paths:
     - .m2/repository/
 
-build-job:       # Example of standard job for my application
+build-job:
   stage: build
   image: maven:3.8.4-openjdk-17
   script:
     - echo "Compiling the code..."
-    - echo "Compile complete."
     - mvn -B package --file pom.xml
+  artifacts:
+    paths:
+      - target/*.jar
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
 
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  environment: production
+push-job:
+  stage: push
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
   script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+    - echo "Building Docker image..."
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" https://index.docker.io/v1/
+    - docker build -t $DOCKER_IMAGE .
+    - docker push $DOCKER_IMAGE
+  needs:
+    - build-job
   rules:
-    - if: $DEFAULT_JOB == "true"
+    - if: '$CI_COMMIT_BRANCH == "master"'
 
-start-job:           # Job example for a specific behavior*
+deploy-job:
+  stage: deploy
+  environment: production
+  image: kingfadzi/vault-ocp:1.0
+  script:
+    - echo "Logging into OpenShift..."
+    - oc login $OPENSHIFT_SERVER --token=$OPENSHIFT_TOKEN --insecure-skip-tls-verify
+    - echo "Checking if project exists or creating it if it does not..."
+    - oc get project $OPENSHIFT_PROJECT || oc new-project $OPENSHIFT_PROJECT
+    - echo "Deploying Docker image to OpenShift..."
+    - oc new-app $DOCKER_IMAGE --name=$APP_NAME
+    - oc rollout restart deployment/$APP_NAME
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+
+start-job:
   stage: start
   script:
     - echo "start job..."
   rules:
     - if: $START_JOB == "true"
 
-stop-job:       # Job example for a specific behavior*
+stop-job:
   stage: stop
   script:
     - echo "stop job..."

@@ -51,6 +51,20 @@ spec:
           ui:options:
             allowedHosts:
               - eros.butterflycluster.com
+    - title: Deployment Options
+      properties:
+        openshift_environment_url:
+          title: OpenShift Environment URL
+          type: string
+          description: Select the URL for the OpenShift environment where the application will be deployed.
+          enum:
+            - "https://openshift-dev-us.example.com"
+            - "https://openshift-dev-eu.example.com"
+        openshift_project:
+          title: OpenShift Project
+          type: string
+          description: The OpenShift project where the application will be deployed.
+
 
   steps:
     - id: template
