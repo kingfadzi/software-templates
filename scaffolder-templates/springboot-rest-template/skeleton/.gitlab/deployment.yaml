@@ -4,7 +4,7 @@ metadata:
   name: ${APP}
   namespace: ${NAMESPACE}
   labels:
-    backstage.io/kubernetes-id: "${CI_COMMIT_REF_SLUG}"  # Linking the deployment with Backstage
+    backstage.io/kubernetes-id: "${CI_PROJECT_PATH_SLUG}"  # Linking the deployment with Backstage
 spec:
   replicas: 1
   selector:
