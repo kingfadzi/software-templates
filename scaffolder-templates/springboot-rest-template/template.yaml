@@ -60,6 +60,7 @@ spec:
         url: ./skeleton
         copyWithoutRender:
           - .gitlab-ci.yml
+          - .gitlab
         values:
           component_id: ${{ parameters.component_id }}
           description: ${{ parameters.description }}
