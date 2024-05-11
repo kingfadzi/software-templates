@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: ${APP}
   namespace: ${NAMESPACE}
+  labels:
+    backstage.io/kubernetes-id: "${CI_PROJECT_NAME}"  # Adding the Backstage label to Service metadata
 spec:
   type: ClusterIP
   ports:
@@ -10,3 +12,4 @@ spec:
     targetPort: 8080
   selector:
     app: ${APP}
+    backstage.io/kubernetes-id: "${CI_PROJECT_NAME}"  # Ensuring the selector includes the Backstage label
