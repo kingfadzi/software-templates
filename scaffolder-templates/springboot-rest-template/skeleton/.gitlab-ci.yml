@@ -1,30 +1,32 @@
+image: docker:19.03
+
+services:
+  - docker:dind
+
 stages:
   - build
   - push
   - deploy
-  - start
-  - stop
+  - review
+  - staging
+  - production
+  - cleanup
 
 variables:
-  DEFAULT_JOB: 'false'
-  START_JOB: 'false'
-  STOP_JOB: 'false'
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-  OPENSHIFT_SERVER: "https://api.ocp4.butterflycluster.com:6443"
-  OPENSHIFT_PROJECT: "$CI_COMMIT_REF_SLUG"
-  APP_NAME: "${CI_PROJECT_NAME}"
+  OPENSHIFT_SERVER: https://api.ocp4.butterflycluster.com:6443
+  OPENSHIFT_TOKEN: $OPENSHIFT_TOKEN
   DOCKER_IMAGE: "${CI_PROJECT_PATH}:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
 
 cache:
   paths:
-    - .m2/repository/
+    - .m2/repository
 
 build-job:
   stage: build
   image: maven:3.8.4-openjdk-17
   script:
     - echo "Compiling the code..."
-    - mvn -B package --file pom.xml
+    - mvn -B clean install -DskipTests
   artifacts:
     paths:
       - target/*.jar
@@ -33,11 +35,11 @@ build-job:
 
 push-job:
   stage: push
-  image: docker:19.03.12
+  image: docker:19.03
   services:
-    - docker:19.03.12-dind
+    - docker:dind
   script:
-    - echo "Building Docker image..."
+    - echo "Building and pushing Docker image..."
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" https://index.docker.io/v1/
     - docker build -t $DOCKER_IMAGE .
     - docker push $DOCKER_IMAGE
@@ -46,32 +48,71 @@ push-job:
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
 
-deploy-job:
-  stage: deploy
-  environment: production
-  image: kingfadzi/vault-ocp:1.0
+.deploy: &deploy
+  image: dtzar/helm-kubectl:3.3.4
+  before_script:
+    - apk add --no-cache gettext # Install
   script:
-    - echo "Logging into OpenShift..."
-    - oc login $OPENSHIFT_SERVER --token=$OPENSHIFT_TOKEN --insecure-skip-tls-verify
-    - echo "Checking if project exists or creating it if it does not..."
-    - oc get project $OPENSHIFT_PROJECT || oc new-project $OPENSHIFT_PROJECT
-    - echo "Deploying Docker image to OpenShift..."
-    - oc new-app $DOCKER_IMAGE --name=$APP_NAME
-    - oc rollout restart deployment/$APP_NAME
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - echo "Setting namespace..."
+    - NAMESPACE="$CI_PROJECT_NAME-$CI_PROJECT_ID"
+    - kubectl config set-cluster openshift --server="${OPENSHIFT_SERVER}" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials openshift-user --token="${OPENSHIFT_TOKEN}"
+    - kubectl config set-context openshift-context --cluster=openshift --user=openshift-user --namespace=$NAMESPACE
+    - kubectl config use-context openshift-context
+    - echo "Deploying application..."
+    - envsubst < ./.gitlab/deployment.yaml | kubectl apply -f -
+    - envsubst < ./.gitlab/service.yaml | kubectl apply -f -
+    - envsubst < ./.gitlab/ingress.yaml | kubectl apply -f -
 
 
-start-job:
-  stage: start
-  script:
-    - echo "start job..."
+review:
+  <<: *deploy
+  stage: review
+  variables:
+    APP: review-$CI_COMMIT_REF_NAME
+    APP_HOST: $CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$OPENSHIFT_DOMAIN
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://$CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$OPENSHIFT_DOMAIN
   rules:
-    - if: $START_JOB == "true"
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
 
-stop-job:
-  stage: stop
+stop-review:
+  <<: *deploy
+  stage: cleanup
   script:
-    - echo "stop job..."
+    - kubectl delete all -l app=$APP --namespace $NAMESPACE
+  variables:
+    APP: review-$CI_COMMIT_REF_NAME
+    GIT_STRATEGY: none
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
   rules:
-    - if: $STOP_JOB == "true"
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: manual
+
+staging:
+  <<: *deploy
+  stage: staging
+  variables:
+    APP: staging
+    APP_HOST: $CI_PROJECT_NAME-staging.$OPENSHIFT_DOMAIN
+  environment:
+    name: staging
+    url: http://$CI_PROJECT_NAME-staging.$OPENSHIFT_DOMAIN
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+production:
+  <<: *deploy
+  stage: production
+  variables:
+    APP: production
+    APP_HOST: $CI_PROJECT_NAME.$OPENSHIFT_DOMAIN
+  environment:
+    name: production
+    url: http://$CI_PROJECT_NAME.$OPENSHIFT_DOMAIN
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
