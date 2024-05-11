@@ -4,16 +4,18 @@ metadata:
   name: ${APP}
   namespace: ${NAMESPACE}
   labels:
-    backstage.io/kubernetes-id: "${CI_PROJECT_NAME}"  # Linking the deployment with Backstage
+    backstage.io/kubernetes-id: "${CI_PROJECT_NAME}"  # Consistently applying the Backstage label
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: ${APP}
+      backstage.io/kubernetes-id: "${CI_PROJECT_NAME}"  # Ensure the selector includes the Backstage label
   template:
     metadata:
       labels:
         app: ${APP}
+        backstage.io/kubernetes-id: "${CI_PROJECT_NAME}"  # Labeling all pods with the Backstage ID
     spec:
       containers:
         - name: ${APP}
