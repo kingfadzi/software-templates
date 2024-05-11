@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: springboot-template-rest
-  title: (Gitlab) Spring Boot REST Service
-  description: Create a simple microservice using gRPC and Spring Boot Java
+  title: Spring Boot REST Service
+  description: Create a simple microservice using REST and Spring Boot Java
   tags:
     - recommended
     - java
