@@ -60,6 +60,7 @@ push-job:
     - kubectl config set-context openshift-context --cluster=openshift --user=openshift-user --namespace=$NAMESPACE
     - kubectl config use-context openshift-context
     - echo "Deploying application..."
+    - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
     - envsubst < ./.gitlab/deployment.yaml | kubectl apply -f -
     - envsubst < ./.gitlab/service.yaml | kubectl apply -f -
     - envsubst < ./.gitlab/ingress.yaml | kubectl apply -f -
