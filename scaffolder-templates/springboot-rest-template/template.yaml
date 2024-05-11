@@ -1,13 +1,13 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: springboot-template-rest
+  name: springboot-rest-template
   title: Spring Boot REST Service
   description: Create a simple microservice using REST and Spring Boot Java
   tags:
     - recommended
     - java
-    - rest
+    - REST
 spec:
   owner: service@example.com
   type: service
@@ -47,7 +47,7 @@ spec:
         repoUrl:
           title: Repository Location
           type: string
-          ui:field: GitlabRepoPicker
+          ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
               - eros.butterflycluster.com
