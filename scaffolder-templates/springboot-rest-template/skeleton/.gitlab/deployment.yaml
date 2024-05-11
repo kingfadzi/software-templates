@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: ${APP}
   namespace: ${NAMESPACE}
+  labels:
+    backstage.io/kubernetes-id: "${APP}"  # Linking the deployment with Backstage
 spec:
   replicas: 1
   selector:
