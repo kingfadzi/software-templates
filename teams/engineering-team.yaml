@@ -9,7 +9,4 @@ spec:
   profile:
     displayName: Engineering Team
     email: engineering@example.com
-  children:
-    - default/development
-    - default/operations
-    - default/security
+
