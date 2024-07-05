@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: development
+  namespace: default
+  description: The development team responsible for software development and implementation.
+spec:
+  type: team
+  profile:
+    displayName: Development Team
+    email: development@example.com
+  parent: default/engineering

@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: engineering
+  namespace: default
+  description: The main engineering team responsible for all technical projects.
+spec:
+  type: team
+  profile:
+    displayName: Engineering Team
+    email: engineering@example.com
+  children:
+    - default/development
+    - default/operations
+    - default/security

@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: operations
+  namespace: default
+  description: The operations team responsible for infrastructure management and CI/CD pipelines.
+spec:
+  type: team
+  profile:
+    displayName: Operations Team
+    email: operations@example.com
+  parent: default/engineering

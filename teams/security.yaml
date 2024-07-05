@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: security
+  namespace: default
+  description: The security team responsible for ensuring application and infrastructure security.
+spec:
+  type: team
+  profile:
+    displayName: Security Team
+    email: security@example.com
+  parent: default/engineering
