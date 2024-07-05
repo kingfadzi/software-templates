@@ -6,7 +6,7 @@ metadata:
 spec:
   type: url
   targets:
-    - ./engineering-team.yaml
-    - ./development-team.yaml
-    - ./operations-team.yaml
-    - ./security-team.yaml
+    - https://github.com/kingfadzi/software-templates/blob/main/teams/engineering-team.yaml
+    - https://github.com/kingfadzi/software-templates/blob/main/teams/development-team.yaml
+    - https://github.com/kingfadzi/software-templates/blob/main/teams/operations-team.yaml
+    - https://github.com/kingfadzi/software-templates/blob/main/teams/security-team.yaml
