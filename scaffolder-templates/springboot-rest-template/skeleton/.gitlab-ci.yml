@@ -55,7 +55,7 @@ push-job:
   script:
     - echo "Setting namespace..."
     - NAMESPACE="$CI_PROJECT_NAME-$CI_PROJECT_ID"
-    - kubectl config use-context --current
+    - kubectl config use-context $(kubectl config current-context)  # Assuming KUBECONFIG_CONTENT sets the correct context as default
     - echo "Deploying application..."
     - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
     - envsubst < ./.gitlab/deployment.yaml | kubectl apply -f -
