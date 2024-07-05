@@ -10,3 +10,4 @@ spec:
     displayName: Operations Team
     email: operations@example.com
   parent: default/engineering
+  children: []
