@@ -13,9 +13,8 @@ stages:
   - cleanup
 
 variables:
-  OPENSHIFT_SERVER: https://api.ocp4.butterflycluster.com:6443
-  OPENSHIFT_TOKEN: $OPENSHIFT_TOKEN
   DOCKER_IMAGE: "${CI_PROJECT_PATH}:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+  DOMAIN: butterflycluster.com
 
 cache:
   paths:
@@ -51,30 +50,27 @@ push-job:
 .deploy: &deploy
   image: dtzar/helm-kubectl:3.3.4
   before_script:
-    - apk add --no-cache gettext # Install
+    - apk add --no-cache gettext # Install gettext
+    - echo "$KUBECONFIG_CONTENT" > /root/.kube/config
   script:
     - echo "Setting namespace..."
     - NAMESPACE="$CI_PROJECT_NAME-$CI_PROJECT_ID"
-    - kubectl config set-cluster openshift --server="${OPENSHIFT_SERVER}" --insecure-skip-tls-verify=true
-    - kubectl config set-credentials openshift-user --token="${OPENSHIFT_TOKEN}"
-    - kubectl config set-context openshift-context --cluster=openshift --user=openshift-user --namespace=$NAMESPACE
-    - kubectl config use-context openshift-context
+    - kubectl config use-context --current
     - echo "Deploying application..."
     - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
     - envsubst < ./.gitlab/deployment.yaml | kubectl apply -f -
     - envsubst < ./.gitlab/service.yaml | kubectl apply -f -
     - envsubst < ./.gitlab/ingress.yaml | kubectl apply -f -
 
-
 review:
   <<: *deploy
   stage: review
   variables:
     APP: review-$CI_COMMIT_REF_NAME
-    APP_HOST: $CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$OPENSHIFT_DOMAIN
+    APP_HOST: $CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$DOMAIN
   environment:
     name: review/$CI_COMMIT_REF_NAME
-    url: http://$CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$OPENSHIFT_DOMAIN
+    url: http://$CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$DOMAIN
   rules:
     - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
 
@@ -98,10 +94,10 @@ staging:
   stage: staging
   variables:
     APP: staging
-    APP_HOST: $CI_PROJECT_NAME-staging.$OPENSHIFT_DOMAIN
+    APP_HOST: $CI_PROJECT_NAME-staging.$DOMAIN
   environment:
     name: staging
-    url: http://$CI_PROJECT_NAME-staging.$OPENSHIFT_DOMAIN
+    url: http://$CI_PROJECT_NAME-staging.$DOMAIN
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
@@ -110,10 +106,10 @@ production:
   stage: production
   variables:
     APP: production
-    APP_HOST: $CI_PROJECT_NAME.$OPENSHIFT_DOMAIN
+    APP_HOST: $CI_PROJECT_NAME.$DOMAIN
   environment:
     name: production
-    url: http://$CI_PROJECT_NAME.$OPENSHIFT_DOMAIN
+    url: http://$CI_PROJECT_NAME.$DOMAIN
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: manual

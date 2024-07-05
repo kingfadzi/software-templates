@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="add children[]">
+    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="replace('%2F', '/')">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/catalog-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/catalog-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/.gitlab-ci.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="main" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -92,7 +95,8 @@
       <workItem from="1711405241711" duration="5331000" />
       <workItem from="1715007132835" duration="5579000" />
       <workItem from="1720143269418" duration="6932000" />
-      <workItem from="1720201019524" duration="61000" />
+      <workItem from="1720201019524" duration="690000" />
+      <workItem from="1720204279408" duration="1150000" />
     </task>
     <task id="LOCAL-00001" summary="gitlab pipeline - first cut">
       <option name="closed" value="true" />
@@ -190,7 +194,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720184058532</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="replace('%2F', '/')">
+      <option name="closed" value="true" />
+      <created>1720201103273</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1720201103273</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +213,8 @@
     <MESSAGE value="gitlab pipeline - first cut" />
     <MESSAGE value="create teams" />
     <MESSAGE value="add children[]" />
-    <option name="LAST_COMMIT_MESSAGE" value="add children[]" />
+    <MESSAGE value="replace('%2F', '/')" />
+    <option name="LAST_COMMIT_MESSAGE" value="replace('%2F', '/')" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
