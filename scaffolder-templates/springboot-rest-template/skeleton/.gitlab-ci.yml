@@ -55,7 +55,7 @@ push-job:
     - export KUBECONFIG=/tmp/kubeconfig
   script:
     - echo "Setting namespace..."
-    - NAMESPACE="$CI_PROJECT_NAME-$CI_PROJECT_ID"
+    - NAMESPACE="$CI_PROJECT_NAME"
     - echo "Deploying application..."
     - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
     - kubectl config set-context --current --namespace=$NAMESPACE
