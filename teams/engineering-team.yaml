@@ -1,12 +1,15 @@
 apiVersion: backstage.io/v1alpha1
-kind: Location
+kind: Group
 metadata:
-  name: teams
-  description: Location of team definitions
+  name: engineering
+  namespace: default
+  description: The main engineering team responsible for all technical projects.
 spec:
-  type: url
-  targets:
-    - https://raw.githubusercontent.com/kingfadzi/software-templates/main/teams/engineering-team.yaml
-    - https://raw.githubusercontent.com/kingfadzi/software-templates/main/teams/development-team.yaml
-    - https://raw.githubusercontent.com/kingfadzi/software-templates/main/teams/operations-team.yaml
-    - https://raw.githubusercontent.com/kingfadzi/software-templates/main/teams/security-team.yaml
+  type: team
+  profile:
+    displayName: Engineering Team
+    email: engineering@example.com
+  children:
+    - default/development
+    - default/operations
+    - default/security

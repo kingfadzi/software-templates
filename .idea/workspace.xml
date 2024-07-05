@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="create teams">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teams/engineering-team.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/teams/engineering-team.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +89,7 @@
       <workItem from="1711316404921" duration="2232000" />
       <workItem from="1711405241711" duration="5331000" />
       <workItem from="1715007132835" duration="5579000" />
-      <workItem from="1720143269418" duration="1321000" />
+      <workItem from="1720143269418" duration="2352000" />
     </task>
     <task id="LOCAL-00001" summary="gitlab pipeline - first cut">
       <option name="closed" value="true" />
@@ -124,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720144993999</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="create teams">
+      <option name="closed" value="true" />
+      <created>1720145231124</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1720145231124</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

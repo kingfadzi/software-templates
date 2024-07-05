@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: teams
+  description: Location of team definitions
+spec:
+  type: url
+  targets:
+    - https://raw.githubusercontent.com/kingfadzi/software-templates/main/teams/engineering-team.yaml
+    - https://raw.githubusercontent.com/kingfadzi/software-templates/main/teams/development-team.yaml
+    - https://raw.githubusercontent.com/kingfadzi/software-templates/main/teams/operations-team.yaml
+    - https://raw.githubusercontent.com/kingfadzi/software-templates/main/teams/security-team.yaml
