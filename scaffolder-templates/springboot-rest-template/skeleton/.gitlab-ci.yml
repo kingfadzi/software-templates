@@ -30,7 +30,7 @@ build-job:
     paths:
       - target/*.jar
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_COMMIT_BRANCH == "master"'
 
 push-job:
   stage: push
@@ -50,17 +50,18 @@ push-job:
 .deploy: &deploy
   image: dtzar/helm-kubectl:3.3.4
   before_script:
-    - apk add --no-cache gettext # Install gettext
-    - echo "$KUBECONFIG_CONTENT" > /root/.kube/config
+    - apk add --no-cache gettext
+    - echo "$KUBECONFIG_CONTENT" > /tmp/kubeconfig
+    - export KUBECONFIG=/tmp/kubeconfig
   script:
     - echo "Setting namespace..."
     - NAMESPACE="$CI_PROJECT_NAME-$CI_PROJECT_ID"
-    - kubectl config use-context --current
     - echo "Deploying application..."
     - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
-    - envsubst < ./.gitlab/deployment.yaml | kubectl apply -f -
-    - envsubst < ./.gitlab/service.yaml | kubectl apply -f -
-    - envsubst < ./.gitlab/ingress.yaml | kubectl apply -f -
+    - kubectl config set-context --current --namespace=$NAMESPACE
+    - envsubst < ./kubernetes/deployment.yaml | kubectl apply -f -
+    - envsubst < ./kubernetes/service.yaml | kubectl apply -f -
+    - envsubst < ./kubernetes/ingress.yaml | kubectl apply -f -
 
 review:
   <<: *deploy
