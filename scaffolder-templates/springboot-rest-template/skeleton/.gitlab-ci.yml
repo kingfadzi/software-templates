@@ -1,115 +1,42 @@
-image: docker:19.03
-
-services:
-  - docker:dind
-
+# List of stages for jobs, and their order of execution
 stages:
   - build
-  - push
   - deploy
-  - review
-  - staging
-  - production
-  - cleanup
+  - start
+  - stop
 
 variables:
-  DOCKER_IMAGE: "${CI_PROJECT_PATH}:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
-  DOMAIN: butterflycluster.com
+  DEFAULT_JOB: 'false'
+  START_JOB: 'false'
+  STOP_JOB: 'false'
 
-cache:
-  paths:
-    - .m2/repository
-
-build-job:
+build-job:       # Example of standard job for my application
   stage: build
-  image: maven:3.8.4-openjdk-17
   script:
     - echo "Compiling the code..."
-    - mvn -B clean install -DskipTests
-  artifacts:
-    paths:
-      - target/*.jar
+    - echo "Compile complete."
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: $DEFAULT_JOB == "true"
 
-push-job:
-  stage: push
-  image: docker:19.03
-  services:
-    - docker:dind
+deploy-job:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  environment: production
   script:
-    - echo "Building and pushing Docker image..."
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" https://index.docker.io/v1/
-    - docker build -t $DOCKER_IMAGE .
-    - docker push $DOCKER_IMAGE
-  needs:
-    - build-job
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
-
-.deploy: &deploy
-  image: dtzar/helm-kubectl:3.3.4
-  before_script:
-    - apk add --no-cache gettext # Install gettext
-    - echo "$KUBECONFIG_CONTENT" > /root/.kube/config
-  script:
-    - echo "Setting namespace..."
-    - NAMESPACE="$CI_PROJECT_NAME-$CI_PROJECT_ID"
-    - kubectl config use-context $(kubectl config current-context)  # Assuming KUBECONFIG_CONTENT sets the correct context as default
     - echo "Deploying application..."
-    - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
-    - envsubst < ./.gitlab/deployment.yaml | kubectl apply -f -
-    - envsubst < ./.gitlab/service.yaml | kubectl apply -f -
-    - envsubst < ./.gitlab/ingress.yaml | kubectl apply -f -
-
-review:
-  <<: *deploy
-  stage: review
-  variables:
-    APP: review-$CI_COMMIT_REF_NAME
-    APP_HOST: $CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$DOMAIN
-  environment:
-    name: review/$CI_COMMIT_REF_NAME
-    url: http://$CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$DOMAIN
+    - echo "Application successfully deployed."
   rules:
-    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    - if: $DEFAULT_JOB == "true"
 
-stop-review:
-  <<: *deploy
-  stage: cleanup
+start-job:           # Job example for a specific behavior*
+  stage: start
   script:
-    - kubectl delete all -l app=$APP --namespace $NAMESPACE
-  variables:
-    APP: review-$CI_COMMIT_REF_NAME
-    GIT_STRATEGY: none
-  environment:
-    name: review/$CI_COMMIT_REF_NAME
-    action: stop
+    - echo "start job..."
   rules:
-    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: manual
+    - if: $START_JOB == "true"
 
-staging:
-  <<: *deploy
-  stage: staging
-  variables:
-    APP: staging
-    APP_HOST: $CI_PROJECT_NAME-staging.$DOMAIN
-  environment:
-    name: staging
-    url: http://$CI_PROJECT_NAME-staging.$DOMAIN
+stop-job:       # Job example for a specific behavior*
+  stage: stop
+  script:
+    - echo "stop job..."
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
-production:
-  <<: *deploy
-  stage: production
-  variables:
-    APP: production
-    APP_HOST: $CI_PROJECT_NAME.$DOMAIN
-  environment:
-    name: production
-    url: http://$CI_PROJECT_NAME.$DOMAIN
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: manual
+    - if: $STOP_JOB == "true"
