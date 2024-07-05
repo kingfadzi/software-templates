@@ -6,7 +6,7 @@ metadata:
   description: ${{values.description | dump}}
   {%- endif %}
   annotations:
-    gitlab.com/project-slug: ${{values.destination.owner + "/" + values.destination.repo}}
+    gitlab.com/project-slug: ${{ (values.destination.owner + "/" + values.destination.repo) | dump | replace('%2F', '/') }}
     backstage.io/techdocs-ref: dir:.
     gitlab.com/jobs: 'Deploy:DEFAULT_JOB,Start:START_JOB,Stop:STOP_JOB'
     backstage.io/kubernetes-id: ${{values.component_id | dump}}  # Ensuring Kubernetes resources are linked
