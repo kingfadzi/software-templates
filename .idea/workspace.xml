@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="add sonaqube">
+    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="add traefik tls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/kubernetes/ingress.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/kubernetes/ingress.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/create-react-app/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app/template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/template.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +99,10 @@
       <workItem from="1720201019524" duration="690000" />
       <workItem from="1720204279408" duration="2064000" />
       <workItem from="1720207198129" duration="3989000" />
-      <workItem from="1720224856845" duration="704000" />
+      <workItem from="1720224856845" duration="1647000" />
+      <workItem from="1720276940953" duration="1112000" />
+      <workItem from="1720278614117" duration="6000" />
+      <workItem from="1720625062356" duration="87000" />
     </task>
     <task id="LOCAL-00001" summary="gitlab pipeline - first cut">
       <option name="closed" value="true" />
@@ -252,7 +256,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720224896768</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="add traefik tls">
+      <option name="closed" value="true" />
+      <created>1720234686104</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1720234686104</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -267,7 +279,8 @@
     <MESSAGE value="nuke ocp crap" />
     <MESSAGE value="deploy to k3s" />
     <MESSAGE value="add sonaqube" />
-    <option name="LAST_COMMIT_MESSAGE" value="add sonaqube" />
+    <MESSAGE value="add traefik tls" />
+    <option name="LAST_COMMIT_MESSAGE" value="add traefik tls" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

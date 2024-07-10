@@ -8,7 +8,7 @@ metadata:
     - react
     - cra
 spec:
-  owner: web@example.com
+  owner: "group:default/engineering"
   type: website
   parameters:
     - title: Provide some simple information

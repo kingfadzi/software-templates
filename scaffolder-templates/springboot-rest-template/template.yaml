@@ -9,7 +9,7 @@ metadata:
     - java
     - rest
 spec:
-  owner: service@example.com
+  owner: "group:default/engineering"
   type: service
 
   parameters:
