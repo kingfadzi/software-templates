@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="add traefik tls">
+    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="fix owners for custom templates">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scaffolder-templates/create-react-app/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app/template.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/template.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/catalog-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/catalog-info.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +101,8 @@
       <workItem from="1720224856845" duration="1647000" />
       <workItem from="1720276940953" duration="1112000" />
       <workItem from="1720278614117" duration="6000" />
-      <workItem from="1720625062356" duration="87000" />
+      <workItem from="1720625062356" duration="237000" />
+      <workItem from="1720717137388" duration="244000" />
     </task>
     <task id="LOCAL-00001" summary="gitlab pipeline - first cut">
       <option name="closed" value="true" />
@@ -264,7 +264,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720234686104</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="fix owners for custom templates">
+      <option name="closed" value="true" />
+      <created>1720625174793</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1720625174793</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,7 +288,8 @@
     <MESSAGE value="deploy to k3s" />
     <MESSAGE value="add sonaqube" />
     <MESSAGE value="add traefik tls" />
-    <option name="LAST_COMMIT_MESSAGE" value="add traefik tls" />
+    <MESSAGE value="fix owners for custom templates" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix owners for custom templates" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
