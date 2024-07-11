@@ -65,11 +65,11 @@ push-job:
     - echo $DOCKER_AUTH_CONFIG > ~/.docker/config.json
   script:
     - echo "Building and pushing Docker image..."
-    - docker build --no-cache -t gitlabservice:$CI_COMMIT_SHA .
-    - echo "Tagging Docker image with gitlabservice:$CI_COMMIT_SHA..."
-    - docker tag gitlabservice:$CI_COMMIT_SHA phobos.butterflycluster.com/nexus/repository/dev-docker/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+    - docker build --no-cache -t $CI_PROJECT_NAME:$CI_COMMIT_SHA .
+    - echo "Tagging Docker image with $CI_PROJECT_NAME:$CI_COMMIT_SHA..."
+    - docker tag $CI_PROJECT_NAME:$CI_COMMIT_SHA $CONTAINER_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_SHA
     - echo "Pushing Docker image to Nexus repository with tag $CI_COMMIT_SHA..."
-    - docker push phobos.butterflycluster.com/nexus/repository/dev-docker/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+    - docker push $CONTAINER_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_SHA
   needs:
     - build-job
   rules:
