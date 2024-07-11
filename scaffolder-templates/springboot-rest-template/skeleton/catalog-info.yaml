@@ -1,18 +1,18 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ${{values.component_id | dump}}
+  name: ${{values.component_id }}
   {%- if values.description %}
   description: ${{values.description | dump}}
   {%- endif %}
   annotations:
-    gitlab.com/project-slug: ${{ (values.destination.owner + "/" + values.destination.repo) | dump }}
+    gitlab.com/project-slug: ${{ (values.destination.owner + "/" + values.destination.repo) }}
     backstage.io/techdocs-ref: dir:.
     gitlab.com/jobs: 'Deploy:DEFAULT_JOB,Start:START_JOB,Stop:STOP_JOB'
-    backstage.io/kubernetes-id: ${{values.component_id | dump}}
+    backstage.io/kubernetes-id: ${{values.destination.repo}}
     nexus-repository-manager/config.title: 'Docker Image'
-    nexus-repository-manager/docker.image-name: nexus/repository/dev-docker/${{values.component_id | dump}}
-    sonarqube.org/project-key: ${{ (values.destination.owner + "_" + values.component_id) + "_REPLACE_WITH_PROJECT_KEY" | dump }}
+    nexus-repository-manager/docker.image-name: nexus/repository/dev-docker/${{values.destination.repo}}
+    sonarqube.org/project-key: ${{ (values.destination.owner + "_" + values.destination.repo) + _REPLACE_WITH_PROJECT_KEY }}
 
 spec:
   type: service

@@ -20,7 +20,4 @@ spec:
                 name: ${APP}
                 port:
                   number: 8080
-  tls:
-    - hosts:
-        - ${APP_HOST}
-      secretName: tls-secret
+
