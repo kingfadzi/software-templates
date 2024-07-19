@@ -3,18 +3,18 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "deployment.fullname" . }}
-  namespace: elasticservice
+  namespace: {{ .Values.namespace }}
   labels:
     helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     app.kubernetes.io/name: {{ include "deployment.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    backstage.io/kubernetes-id: "elasticservice"
+    backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     kubernetes.io/ingress.class: traefik
-    backstage.io/kubernetes-id: "elasticservice"
+    backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}
 spec:
   ingressClassName: "traefik"
   rules:
