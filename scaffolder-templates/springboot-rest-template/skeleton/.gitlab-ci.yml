@@ -85,7 +85,7 @@ push-job:
     - echo "Setting namespace..."
     - NAMESPACE="$CI_PROJECT_NAME"
     - echo "Deploying application..."
-    - helm upgrade --install elasticservice ./path/to/your/chart \
+    - helm upgrade --install $CI_PROJECT_NAME ./helm/deployment \
       --namespace elasticservice \
       --set fullnameOverride="$CI_PROJECT_NAME" \
       --set namespace="$CI_PROJECT_NAME" \
