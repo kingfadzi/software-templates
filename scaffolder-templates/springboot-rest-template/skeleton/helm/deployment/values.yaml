@@ -45,6 +45,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     kubernetes.io/ingress.class: traefik
+    backstage.io/kubernetes-id: "elasticservice"
   hosts:
     - host: elasticservice.butterflycluster.com
       paths:
@@ -109,8 +110,11 @@ namespace: "elasticservice"
 podLabels:
   app: "elasticservice"
 
+appLabels:
+  app: "elasticservice"
+
 backstageLabels:
-  kubernetes-id: "elasticservice"
+  kubernetesId: "elasticservice"
 
 image:
   repository: phobos.butterflycluster.com/nexus/repository/dev-docker/elasticservice

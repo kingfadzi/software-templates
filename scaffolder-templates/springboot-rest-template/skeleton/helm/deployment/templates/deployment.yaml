@@ -13,9 +13,8 @@ spec:
   selector:
     matchLabels:
       {{- include "deployment.selectorLabels" . | nindent 6 }}
-      {{- with .Values.podLabels }}
-      {{- toYaml . | nindent 6 }}
-      {{- end }}
+      app: {{ .Values.appLabels.app | quote }}
+      backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -24,9 +23,8 @@ spec:
       {{- end }}
       labels:
         {{- include "deployment.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        app: {{ .Values.appLabels.app | quote }}
+        backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

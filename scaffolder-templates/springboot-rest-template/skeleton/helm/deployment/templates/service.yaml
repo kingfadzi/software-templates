@@ -15,6 +15,5 @@ spec:
       name: http
   selector:
       {{- include "deployment.selectorLabels" . | nindent 6 }}
-      {{- with .Values.podLabels }}
-      {{- toYaml . | nindent 6 }}
-      {{- end }}
+      app: {{ .Values.appLabels.app | quote }}
+      backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}

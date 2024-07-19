@@ -13,3 +13,4 @@ spec:
       name: http
   selector:
     {{- include "bla.selectorLabels" . | nindent 4 }}
+    backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}
