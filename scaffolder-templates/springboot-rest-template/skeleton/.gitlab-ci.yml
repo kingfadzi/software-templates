@@ -85,11 +85,16 @@ push-job:
     - echo "Setting namespace..."
     - NAMESPACE="$CI_PROJECT_NAME"
     - echo "Deploying application..."
-    - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
-    - kubectl config set-context --current --namespace=$NAMESPACE
-    - envsubst < ./kubernetes/deployment.yaml | kubectl apply -f -
-    - envsubst < ./kubernetes/service.yaml | kubectl apply -f -
-    - envsubst < ./kubernetes/ingress.yaml | kubectl apply -f -
+    - helm upgrade --install elasticservice ./path/to/your/chart \
+      --namespace elasticservice \
+      --set fullnameOverride="$CI_PROJECT_NAME" \
+      --set namespace="$CI_PROJECT_NAME" \
+      --set podLabels.backstage.io/kubernetes-id="$CI_PROJECT_NAME" \
+      --set appLabels.app="$CI_PROJECT_NAME" \
+      --set backstageLabels.backstage.io/kubernetes-id="$CI_PROJECT_NAME" \
+      --set image.repository="$CONTAINER_REGISTRY/$CI_PROJECT_NAME" \
+      --set image.tag="$CI_COMMIT_SHA" \
+      --set ingress.hosts[0].host=$APP_HOST
     - kubectl get deployments -n $NAMESPACE -o wide
     - kubectl get services -n $NAMESPACE -o wide
     - kubectl get pods -n $NAMESPACE -o wide

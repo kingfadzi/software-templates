@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "deployment.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "deployment.labels" . | nindent 4 }}
+    {{- with .Values.backstageLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+   {{- include "deployment.selectorLabels" . | nindent 4 }}
+   {{- with .Values.backstageLabels }}
+   {{- toYaml . | nindent 4 }}
+   {{- end }}
+   {{- with .Values.appLabels }}
+   {{- toYaml . | nindent 4 }}
+   {{- end }}
