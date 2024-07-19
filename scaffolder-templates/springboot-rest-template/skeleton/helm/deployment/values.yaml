@@ -98,9 +98,6 @@ fullnameOverride: "elasticservice"
 
 namespace: "elasticservice"
 
-podLabels:
-  app: "elasticservice"
-
 appLabels:
   app: "elasticservice"
 
