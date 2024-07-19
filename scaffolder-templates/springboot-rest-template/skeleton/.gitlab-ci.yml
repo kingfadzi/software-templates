@@ -86,15 +86,15 @@ push-job:
     - echo "Setting namespace..."
     - NAMESPACE="$CI_PROJECT_NAME"
     - echo "Deploying application..."
-    - helm upgrade --install $CI_PROJECT_NAME helm/deployment \
-      --namespace $NAMESPACE \
-      --set fullnameOverride=$CI_PROJECT_NAME \
-      --set namespace=$NAMESPACE \
-      --set podLabels.app=$APP \
-      --set appLabels.app=$CI_PROJECT_NAME \
-      --set backstageLabels.kubernetesId=$CI_PROJECT_NAME \
-      --set image.repository=$CONTAINER_REGISTRY/$CI_PROJECT_NAME \
-      --set image.tag=$CI_COMMIT_SHA \
+    - helm upgrade --install $CI_PROJECT_NAME helm/deployment
+      --namespace $NAMESPACE
+      --set fullnameOverride=$CI_PROJECT_NAME
+      --set namespace=$NAMESPACE
+      --set podLabels.app=$APP
+      --set appLabels.app=$CI_PROJECT_NAME
+      --set backstageLabels.kubernetesId=$CI_PROJECT_NAME
+      --set image.repository=$CONTAINER_REGISTRY/$CI_PROJECT_NAME
+      --set image.tag=$CI_COMMIT_SHA
       --set "ingress.hosts[0].host=$APP_HOST"
     - kubectl get deployments -n $NAMESPACE -o wide
     - kubectl get services -n $NAMESPACE -o wide
