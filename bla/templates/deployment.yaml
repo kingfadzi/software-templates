@@ -1,21 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "deployment.fullname" . }}
-  namespace: {{ .Values.namespace }}
+  name: {{ include "bla.fullname" . }}
   labels:
-    {{- include "deployment.labels" . | nindent 4 }}
-    backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}
+    {{- include "bla.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "deployment.selectorLabels" . | nindent 6 }}
-      {{- with .Values.podLabels }}
-      {{- toYaml . | nindent 6 }}
-      {{- end }}
+      {{- include "bla.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -23,7 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "deployment.labels" . | nindent 8 }}
+        {{- include "bla.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -32,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "deployment.serviceAccountName" . }}
+      serviceAccountName: {{ include "bla.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

@@ -80,20 +80,21 @@ push-job:
   before_script:
     - apk add --no-cache gettext
     - echo "$KUBECONFIG_CONTENT" > /tmp/kubeconfig
+    - chmod 600 /tmp/kubeconfig
     - export KUBECONFIG=/tmp/kubeconfig
   script:
     - echo "Setting namespace..."
     - NAMESPACE="$CI_PROJECT_NAME"
     - echo "Deploying application..."
-    - helm upgrade --install $CI_PROJECT_NAME ./helm/deployment \
-      --namespace elasticservice \
-      --set fullnameOverride="$CI_PROJECT_NAME" \
-      --set namespace="$CI_PROJECT_NAME" \
-      --set podLabels.backstage.io/kubernetes-id="$CI_PROJECT_NAME" \
-      --set appLabels.app="$CI_PROJECT_NAME" \
-      --set backstageLabels.backstage.io/kubernetes-id="$CI_PROJECT_NAME" \
-      --set image.repository="$CONTAINER_REGISTRY/$CI_PROJECT_NAME" \
-      --set image.tag="$CI_COMMIT_SHA" \
+    - helm upgrade --install $CI_PROJECT_NAME helm/deployment
+      --namespace elasticservice
+      --set fullnameOverride="$CI_PROJECT_NAME"
+      --set namespace="$CI_PROJECT_NAME"
+      --set podLabels.backstage.io/kubernetes-id="$CI_PROJECT_NAME"
+      --set appLabels.app="$CI_PROJECT_NAME"
+      --set backstageLabels.backstage.io/kubernetes-id="$CI_PROJECT_NAME"
+      --set image.repository="$CONTAINER_REGISTRY/$CI_PROJECT_NAME"
+      --set image.tag="$CI_COMMIT_SHA"
       --set ingress.hosts[0].host=$APP_HOST
     - kubectl get deployments -n $NAMESPACE -o wide
     - kubectl get services -n $NAMESPACE -o wide

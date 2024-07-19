@@ -5,8 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="add helm">
+      <change afterPath="$PROJECT_DIR$/bla/.helmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/Chart.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/templates/NOTES.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/templates/_helpers.tpl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/templates/deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/templates/hpa.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/templates/ingress.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/templates/service.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/templates/serviceaccount.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/templates/tests/test-connection.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bla/values.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/.gitlab-ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/templates/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/templates/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/templates/hpa.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/templates/hpa.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/templates/ingress.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/templates/ingress.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/templates/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/templates/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/values.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +122,7 @@
       <workItem from="1720717137388" duration="607000" />
       <workItem from="1720718080216" duration="4820000" />
       <workItem from="1720972060971" duration="22158000" />
-      <workItem from="1721417629639" duration="1691000" />
+      <workItem from="1721417629639" duration="5487000" />
     </task>
     <task id="LOCAL-00001" summary="gitlab pipeline - first cut">
       <option name="closed" value="true" />
@@ -332,7 +348,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721418531167</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="add helm">
+      <option name="closed" value="true" />
+      <created>1721419333646</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1721419333646</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

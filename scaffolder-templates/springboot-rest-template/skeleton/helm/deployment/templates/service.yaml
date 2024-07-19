@@ -5,9 +5,7 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     {{- include "deployment.labels" . | nindent 4 }}
-    {{- with .Values.backstageLabels }}
-    {{- toYaml . | nindent 4 }}
-    {{- end }}
+    backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -16,10 +14,7 @@ spec:
       protocol: TCP
       name: http
   selector:
-   {{- include "deployment.selectorLabels" . | nindent 4 }}
-   {{- with .Values.backstageLabels }}
-   {{- toYaml . | nindent 4 }}
-   {{- end }}
-   {{- with .Values.appLabels }}
-   {{- toYaml . | nindent 4 }}
-   {{- end }}
+      {{- include "deployment.selectorLabels" . | nindent 6 }}
+      {{- with .Values.podLabels }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
