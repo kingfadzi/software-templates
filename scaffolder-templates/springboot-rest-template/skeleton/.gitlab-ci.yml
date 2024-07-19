@@ -86,6 +86,9 @@ push-job:
     - echo "Setting namespace..."
     - NAMESPACE="$CI_PROJECT_NAME"
     - echo "Deploying application..."
+    - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
+    - kubectl config set-context --current --namespace=$NAMESPACE
+    - echo "Deploying application..."
     - helm upgrade --install $CI_PROJECT_NAME helm/deployment
       --namespace $NAMESPACE
       --set fullnameOverride=$CI_PROJECT_NAME
