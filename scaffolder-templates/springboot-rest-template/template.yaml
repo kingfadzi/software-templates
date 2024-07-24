@@ -51,6 +51,39 @@ spec:
           ui:options:
             allowedHosts:
               - eros.butterflycluster.com
+    - title: Create Secrets
+      required:
+        - vaultToken
+        - sonarQubeProjectKey
+        - dockerRepoUser
+        - dockerRepoPassword
+        - kubeUser
+        - kubePassword
+      properties:
+        vaultToken:
+          title: Vault Token
+          type: string
+          description: Vault Token
+        sonarQubeProjectKey:
+          title: SonarQube Project Key
+          type: string
+          description: SonarQube Project Key
+        dockerRepoUser:
+          title: Docker Repo User
+          type: string
+          description: Docker Repo User
+        dockerRepoPassword:
+          title: Docker Repo Password
+          type: string
+          description:  Docker Repo Password
+        kubeUser:
+          title: Kubernetes User
+          type: string
+          description: Kubernetes User
+        kubePassword:
+          title: Kubernetes Password
+          type: string
+          description: Kubernetes Password
 
   steps:
     - id: template

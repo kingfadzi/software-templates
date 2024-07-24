@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="fix ingress">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/.env.local" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/.env.local" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/.gitlab-ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton/helm/deployment/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/template.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,23 +48,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/fadzi/tools/software-templates/scaffolder-templates/springboot-rest-template/skeleton",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "ml.llm.AIAssistantPromptsLibrary",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/fadzi/tools/software-templates/scaffolder-templates/springboot-rest-template/skeleton&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.AIAssistantPromptsLibrary&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/scaffolder-templates/springboot-rest-template/skeleton" />
@@ -108,7 +106,9 @@
       <workItem from="1720717137388" duration="607000" />
       <workItem from="1720718080216" duration="4820000" />
       <workItem from="1720972060971" duration="22158000" />
-      <workItem from="1721417629639" duration="11345000" />
+      <workItem from="1721417629639" duration="13950000" />
+      <workItem from="1721499525294" duration="3990000" />
+      <workItem from="1721769737903" duration="1199000" />
     </task>
     <task id="LOCAL-00001" summary="gitlab pipeline - first cut">
       <option name="closed" value="true" />
@@ -390,7 +390,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721429900900</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="fix ingress">
+      <option name="closed" value="true" />
+      <created>1721430682624</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1721430682624</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
