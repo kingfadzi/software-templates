@@ -11,7 +11,6 @@ metadata:
 spec:
   owner: "group:default/engineering"
   type: service
-
   parameters:
     - title: Provide some simple information
       required:
@@ -75,7 +74,7 @@ spec:
         dockerRepoPassword:
           title: Docker Repo Password
           type: string
-          description:  Docker Repo Password
+          description: Docker Repo Password
         kubeUser:
           title: Kubernetes User
           type: string
@@ -84,7 +83,6 @@ spec:
           title: Kubernetes Password
           type: string
           description: Kubernetes Password
-
   steps:
     - id: template
       name: Fetch Skeleton + Template
@@ -102,7 +100,6 @@ spec:
           owner: ${{ parameters.owner }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           http_port: 8080
-
     - id: publish
       name: Publish
       action: publish:gitlab
@@ -110,14 +107,25 @@ spec:
         allowedHosts: ["eros.butterflycluster.com"]
         description: This is ${{ parameters.component_id }}
         repoUrl: ${{ parameters.repoUrl }}
-
     - id: register
       name: Register
       action: catalog:register
       input:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
         catalogInfoPath: "/catalog-info.yaml"
-
+    - id: create-vault-secrets
+      name: Store Secrets in Vault
+      action: custom:create-vault-secrets
+      input:
+        vaultUrl: 'https://phobos.butterflycluster.com:8200'
+        vaultToken: ${{ parameters.vaultToken }}
+        component_id: ${{ parameters.component_id }}
+        secrets:
+          sonarQubeProjectKey: ${{ parameters.sonarQubeProjectKey }}
+          dockerRepoUser: ${{ parameters.dockerRepoUser }}
+          dockerRepoPassword: ${{ parameters.dockerRepoPassword }}
+          kubeUser: ${{ parameters.kubeUser }}
+          kubePassword: ${{ parameters.kubePassword }}
   output:
     links:
       - title: Repository
