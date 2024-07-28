@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${APP}
+  namespace: ${NAMESPACE}
+  labels:
+    backstage.io/kubernetes-id: "${CI_PROJECT_NAME}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${APP}
+      backstage.io/kubernetes-id: "${CI_PROJECT_NAME}"
+  template:
+    metadata:
+      labels:
+        app: ${APP}
+        backstage.io/kubernetes-id: "${CI_PROJECT_NAME}"
+    spec:
+      containers:
+        - name: ${APP}
+          image: ${DOCKER_IMAGE}
+          ports:
+            - containerPort: 8080

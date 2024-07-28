@@ -1,0 +1,155 @@
+image: docker:19.03
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - sonarqube-check
+  - push
+  - deploy
+  - review
+  - staging
+  - production
+  - cleanup
+
+variables:
+  CONTAINER_REGISTRY: phobos.butterflycluster.com/nexus/repository/dev-docker
+  DOCKER_IMAGE: $CONTAINER_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+  DOMAIN: butterflycluster.com
+
+cache:
+  paths:
+    - .m2/repository
+
+build-job:
+  stage: build
+  image: maven:3.8.4-openjdk-17
+  script:
+    - echo "Compiling the code..."
+    - mvn -B clean install -DskipTests
+  artifacts:
+    paths:
+      - target/*.jar
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+sonarqube-check:
+  stage: sonarqube-check
+  image: maven:3-eclipse-temurin-17
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - mvn verify sonar:sonar
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+    - main
+    - develop
+
+
+push-job:
+  stage: push
+  image: docker:20.10.16
+  services:
+    - docker:dind
+  before_script:
+    - echo "Building and pushing Docker image..."
+    - mkdir -p ~/.docker
+    - echo $DOCKER_AUTH_CONFIG > ~/.docker/config.json
+  script:
+    - echo "Building and pushing Docker image..."
+    - docker build --no-cache -t $CI_PROJECT_NAME:$CI_COMMIT_SHA .
+    - echo "Tagging Docker image with $CI_PROJECT_NAME:$CI_COMMIT_SHA..."
+    - docker tag $CI_PROJECT_NAME:$CI_COMMIT_SHA $CONTAINER_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+    - echo "Pushing Docker image to Nexus repository with tag $CI_COMMIT_SHA..."
+    - docker push $CONTAINER_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+  needs:
+    - build-job
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+
+.deploy: &deploy
+  image: dtzar/helm-kubectl:3.3.4
+  before_script:
+    - apk add --no-cache gettext
+    - echo "$KUBECONFIG_CONTENT" > /tmp/kubeconfig
+    - chmod 600 /tmp/kubeconfig
+    - export KUBECONFIG=/tmp/kubeconfig
+  script:
+    - echo "Setting namespace..."
+    - NAMESPACE="$CI_PROJECT_NAME"
+    - echo "Deploying application..."
+    - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
+    - kubectl config set-context --current --namespace=$NAMESPACE
+    - echo "Deploying application..."
+    - helm upgrade --install $CI_PROJECT_NAME helm/deployment
+      --namespace $NAMESPACE
+      --set fullnameOverride=$CI_PROJECT_NAME
+      --set namespace=$NAMESPACE
+      --set appLabels.app=$CI_PROJECT_NAME
+      --set backstageLabels.kubernetesId=$CI_PROJECT_NAME
+      --set image.repository=$CONTAINER_REGISTRY/$CI_PROJECT_NAME
+      --set image.tag=$CI_COMMIT_SHA
+      --set ingress.host=$APP_HOST
+    - kubectl get deployments -n $NAMESPACE -o wide
+    - kubectl get services -n $NAMESPACE -o wide
+    - kubectl get pods -n $NAMESPACE -o wide
+
+review:
+  <<: *deploy
+  stage: review
+  variables:
+    APP: review-$CI_COMMIT_REF_NAME
+    APP_HOST: $CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$DOMAIN
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    url: http://$CI_PROJECT_NAME-$CI_ENVIRONMENT_SLUG.$DOMAIN
+  rules:
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+
+stop-review:
+  <<: *deploy
+  stage: cleanup
+  script:
+    - kubectl delete all -l app=$APP --namespace $NAMESPACE
+  variables:
+    APP: review-$CI_COMMIT_REF_NAME
+    GIT_STRATEGY: none
+  environment:
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
+  rules:
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: manual
+
+staging:
+  <<: *deploy
+  stage: staging
+  variables:
+    APP: staging
+    APP_HOST: $CI_PROJECT_NAME-staging.$DOMAIN
+  environment:
+    name: staging
+    url: http://$CI_PROJECT_NAME-staging.$DOMAIN
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+production:
+  <<: *deploy
+  stage: production
+  variables:
+    APP: production
+    APP_HOST: $CI_PROJECT_NAME.$DOMAIN
+  environment:
+    name: production
+    url: http://$CI_PROJECT_NAME.$DOMAIN
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
