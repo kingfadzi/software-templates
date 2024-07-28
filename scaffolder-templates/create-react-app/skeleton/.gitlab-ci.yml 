@@ -1,4 +1,4 @@
-image: docker:19.03
+image: node:18
 
 services:
   - docker:dind
@@ -15,28 +15,29 @@ stages:
 
 variables:
   CONTAINER_REGISTRY: phobos.butterflycluster.com/nexus/repository/dev-docker
-  DOCKER_IMAGE: $CONTAINER_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_SHA
-  DOMAIN: butterflycluster.com
+  DOCKER_IMAGE: $CONTAINER_REGISTRY/$CI_PROJECT_NAME:latest  # Changed to 'latest' tag
 
 cache:
   paths:
-    - .m2/repository
+    - node_modules/
 
 build-job:
   stage: build
-  image: maven:3.8.4-openjdk-17
+  image: node:18
   script:
-    - echo "Compiling the code..."
-    - mvn -B clean install -DskipTests
+    - echo "Installing dependencies..."
+    - npm install
+    - echo "Building the app..."
+    - npm run build
   artifacts:
     paths:
-      - target/*.jar
+      - build/
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
 
 sonarqube-check:
   stage: sonarqube-check
-  image: maven:3-eclipse-temurin-17
+  image: sonarsource/sonar-scanner-cli:4.6
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
     GIT_DEPTH: "0"
@@ -45,14 +46,13 @@ sonarqube-check:
     paths:
       - .sonar/cache
   script:
-    - mvn verify sonar:sonar
+    - sonar-scanner -Dsonar.projectKey=$CI_PROJECT_NAME -Dsonar.sources=src -Dsonar.host.url=$SONARQUBE_URL -Dsonar.login=$SONARQUBE_TOKEN
   allow_failure: true
   only:
     - merge_requests
     - master
     - main
     - develop
-
 
 push-job:
   stage: push
@@ -65,11 +65,11 @@ push-job:
     - echo $DOCKER_AUTH_CONFIG > ~/.docker/config.json
   script:
     - echo "Building and pushing Docker image..."
-    - docker build --no-cache -t $CI_PROJECT_NAME:$CI_COMMIT_SHA .
-    - echo "Tagging Docker image with $CI_PROJECT_NAME:$CI_COMMIT_SHA..."
-    - docker tag $CI_PROJECT_NAME:$CI_COMMIT_SHA $CONTAINER_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_SHA
-    - echo "Pushing Docker image to Nexus repository with tag $CI_COMMIT_SHA..."
-    - docker push $CONTAINER_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+    - docker build -t $DOCKER_IMAGE .
+    - echo "Tagging Docker image with latest..."
+    - docker tag $DOCKER_IMAGE $DOCKER_IMAGE
+    - echo "Pushing Docker image to Nexus repository..."
+    - docker push $DOCKER_IMAGE
   needs:
     - build-job
   rules:
@@ -88,7 +88,6 @@ push-job:
     - echo "Deploying application..."
     - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
     - kubectl config set-context --current --namespace=$NAMESPACE
-    - echo "Deploying application..."
     - helm upgrade --install $CI_PROJECT_NAME helm/deployment
       --namespace $NAMESPACE
       --set fullnameOverride=$CI_PROJECT_NAME
@@ -96,7 +95,7 @@ push-job:
       --set appLabels.app=$CI_PROJECT_NAME
       --set backstageLabels.kubernetesId=$CI_PROJECT_NAME
       --set image.repository=$CONTAINER_REGISTRY/$CI_PROJECT_NAME
-      --set image.tag=$CI_COMMIT_SHA
+      --set image.tag=latest  # Using the 'latest' tag
       --set ingress.host=$APP_HOST
     - kubectl get deployments -n $NAMESPACE -o wide
     - kubectl get services -n $NAMESPACE -o wide
