@@ -15,7 +15,7 @@ stages:
 
 variables:
   CONTAINER_REGISTRY: phobos.butterflycluster.com/nexus/repository/dev-docker
-  DOCKER_IMAGE: $CONTAINER_REGISTRY/$CI_PROJECT_NAME:latest  # Changed to 'latest' tag
+  DOCKER_IMAGE: $CONTAINER_REGISTRY/$CI_PROJECT_NAME:latest
 
 cache:
   paths:
@@ -60,15 +60,12 @@ push-job:
   services:
     - docker:dind
   before_script:
-    - echo "Building and pushing Docker image..."
     - mkdir -p ~/.docker
     - echo $DOCKER_AUTH_CONFIG > ~/.docker/config.json
   script:
     - echo "Building and pushing Docker image..."
     - docker build -t $DOCKER_IMAGE .
-    - echo "Tagging Docker image with latest..."
     - docker tag $DOCKER_IMAGE $DOCKER_IMAGE
-    - echo "Pushing Docker image to Nexus repository..."
     - docker push $DOCKER_IMAGE
   needs:
     - build-job
@@ -83,20 +80,10 @@ push-job:
     - chmod 600 /tmp/kubeconfig
     - export KUBECONFIG=/tmp/kubeconfig
   script:
-    - echo "Setting namespace..."
     - NAMESPACE="$CI_PROJECT_NAME"
-    - echo "Deploying application..."
     - kubectl create namespace $NAMESPACE 2>/dev/null || echo "Namespace $NAMESPACE already exists."
     - kubectl config set-context --current --namespace=$NAMESPACE
-    - helm upgrade --install $CI_PROJECT_NAME helm/deployment
-      --namespace $NAMESPACE
-      --set fullnameOverride=$CI_PROJECT_NAME
-      --set namespace=$NAMESPACE
-      --set appLabels.app=$CI_PROJECT_NAME
-      --set backstageLabels.kubernetesId=$CI_PROJECT_NAME
-      --set image.repository=$CONTAINER_REGISTRY/$CI_PROJECT_NAME
-      --set image.tag=latest  # Using the 'latest' tag
-      --set ingress.host=$APP_HOST
+    - helm upgrade --install $CI_PROJECT_NAME helm/deployment --namespace $NAMESPACE --set fullnameOverride=$CI_PROJECT_NAME --set namespace=$NAMESPACE --set appLabels.app=$CI_PROJECT_NAME --set backstageLabels.kubernetesId=$CI_PROJECT_NAME --set image.repository=$CONTAINER_REGISTRY/$CI_PROJECT_NAME --set image.tag=latest --set ingress.host=$APP_HOST
     - kubectl get deployments -n $NAMESPACE -o wide
     - kubectl get services -n $NAMESPACE -o wide
     - kubectl get pods -n $NAMESPACE -o wide
@@ -127,6 +114,8 @@ stop-review:
   rules:
     - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
       when: manual
+  needs:
+    - review
 
 staging:
   <<: *deploy
