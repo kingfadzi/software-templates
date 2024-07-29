@@ -14,7 +14,7 @@ stages:
   - cleanup
 
 variables:
-  CONTAINER_REGISTRY: phobos.butterflycluster.com/nexus/repository/dev-docker
+  CONTAINER_REGISTRY: elara.butterflycluster.com/repository/dev-docker
   DOCKER_IMAGE: $CONTAINER_REGISTRY/$CI_PROJECT_NAME:latest
   DOMAIN: butterflycluster.com
 
