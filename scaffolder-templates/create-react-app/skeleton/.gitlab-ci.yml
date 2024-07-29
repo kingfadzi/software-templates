@@ -16,6 +16,7 @@ stages:
 variables:
   CONTAINER_REGISTRY: phobos.butterflycluster.com/nexus/repository/dev-docker
   DOCKER_IMAGE: $CONTAINER_REGISTRY/$CI_PROJECT_NAME:latest
+  DOMAIN: butterflycluster.com
 
 cache:
   paths:
