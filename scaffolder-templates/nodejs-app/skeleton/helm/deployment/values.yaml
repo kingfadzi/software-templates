@@ -33,7 +33,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 3000
+  port: 8080
 
 ingress:
   enabled: true
@@ -58,12 +58,12 @@ resources: {}
 
 livenessProbe:
   httpGet:
-    path: /
-    port: http
+    path: /healthyz
+    port: 8080
 readinessProbe:
   httpGet:
-    path: /
-    port: http
+    path: /readyz
+    port: 8080
 
 autoscaling:
   enabled: false

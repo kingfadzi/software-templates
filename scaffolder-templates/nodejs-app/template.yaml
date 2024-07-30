@@ -1,12 +1,12 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: create-react-app-template
-  title: Create React App Template
-  description: Create a new CRA website project
+  name: nodejs-app-template
+  title: Node JS App Template
+  description: Create a new NodeJS project
   tags:
-    - react
-    - cra
+    - nodejs
+    - typescript
 spec:
   owner: "group:default/engineering"
   type: website
