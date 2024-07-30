@@ -1,26 +1,43 @@
-# Use an official Node.js runtime as a parent image
-FROM node:18
+# Stage 1: Build the React application
+FROM node:18 AS builder
 
-# Set the working directory
-WORKDIR /usr/src/app
+# Set working directory
+WORKDIR /app
 
-# Copy the package.json and package-lock.json files
-COPY package*.json ./
+# Copy package.json and yarn.lock
+COPY package.json yarn.lock ./
 
-# Install app dependencies
-RUN npm install
+# Install dependencies
+RUN yarn install
 
-# Copy the rest of the application code
+# Copy the rest of the application
 COPY . .
 
-# Build the React app
-RUN npm run build
+# Build the React application
+RUN yarn build
 
-# Install a lightweight HTTP server to serve the static files
-RUN npm install -g serve
+# Stage 2: Set up the Node.js server
+FROM node:18
 
-# Expose port 3000 to the outside world
+# Set working directory
+WORKDIR /app
+
+# Copy only the server source code and package.json
+COPY package.json yarn.lock ./
+COPY src/server.ts ./src/
+
+# Install dependencies
+RUN yarn install
+
+# Copy the build output from the previous stage
+COPY --from=builder /app/public /app/public
+
+# Build the server code
+RUN yarn add typescript ts-node
+RUN yarn tsc src/server.ts --outDir dist
+
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Command to run the HTTP server to serve the static files
-CMD ["serve", "-s", "build"]
+# Command to run the application
+CMD ["node", "dist/server.js"]
