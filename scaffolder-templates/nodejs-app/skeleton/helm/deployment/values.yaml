@@ -59,11 +59,11 @@ resources: {}
 livenessProbe:
   httpGet:
     path: /healthyz
-    port: 8080
+    port: 3000
 readinessProbe:
   httpGet:
     path: /readyz
-    port: 8080
+    port: 3000
 
 autoscaling:
   enabled: false
