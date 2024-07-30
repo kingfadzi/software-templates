@@ -27,5 +27,5 @@ spec:
               service:
                 name: {{ include "deployment.fullname" . }}
                 port:
-                  number: 80
+                  number: 8080
 {{- end }}
