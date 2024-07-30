@@ -13,16 +13,14 @@ metadata:
     backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    kubernetes.io/ingress.class: traefik
     backstage.io/kubernetes-id: {{ .Values.backstageLabels.kubernetesId | quote }}
 spec:
-  ingressClassName: "traefik"
   rules:
     - host: {{ .Values.ingress.host | quote }}
       http:
         paths:
           - path: /
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: {{ include "deployment.fullname" . }}
