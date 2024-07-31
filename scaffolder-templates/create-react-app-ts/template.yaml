@@ -1,9 +1,9 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: nodejs-app-template
-  title: Node JS App Template
-  description: Create a new NodeJS project
+  name: create-react-app-ts
+  title: Create React App Template
+  description: Create a new Create React App project
   tags:
     - nodejs
     - typescript

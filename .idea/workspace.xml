@@ -4,9 +4,63 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="remove CRA crap and make it nodejs">
+    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="add yarn lock">
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/src/App.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/src/App.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/src/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/src/logo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/src/react-app-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/src/reportWebVitals.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/src/setupTests.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/.idea/create-react-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/.idea/create-react-app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/.gitlab-ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/.gitlab-ci.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/catalog-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/catalog-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/docs/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/docs/index.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/Chart.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/Chart.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/templates/NOTES.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/templates/NOTES.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/templates/_helpers.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/templates/_helpers.tpl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/templates/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/templates/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/templates/hpa.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/templates/hpa.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/templates/ingress.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/templates/ingress.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/templates/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/templates/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/templates/serviceaccount.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/templates/serviceaccount.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/templates/tests/test-connection.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/templates/tests/test-connection.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/helm/deployment/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/helm/deployment/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/kubernetes/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/kubernetes/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/kubernetes/ingress.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/kubernetes/ingress.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/kubernetes/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/kubernetes/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/mkdocs.yml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/skeleton/mkdocs.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/src/client/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/src/client/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/src/server.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scaffolder-templates/nodejs-app/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/template.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +116,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.AIAssistantPromptsLibrary&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/fadzi/tools/software-templates/scaffolder-templates/nodejs-app/skeleton/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -73,6 +127,7 @@
       <recent name="$PROJECT_DIR$/scaffolder-templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton" />
       <recent name="$PROJECT_DIR$/scaffolder-templates/springboot-grpc-template-gl/skeleton" />
     </key>
   </component>
@@ -112,7 +167,11 @@
       <workItem from="1721769737903" duration="1199000" />
       <workItem from="1722290045201" duration="1270000" />
       <workItem from="1722298738338" duration="3632000" />
-      <workItem from="1722354802248" duration="3127000" />
+      <workItem from="1722354802248" duration="16916000" />
+      <workItem from="1722462878461" duration="706000" />
+      <workItem from="1722464441540" duration="10000" />
+      <workItem from="1722465003072" duration="2279000" />
+      <workItem from="1722467935374" duration="46000" />
     </task>
     <task id="LOCAL-00001" summary="gitlab pipeline - first cut">
       <option name="closed" value="true" />
@@ -450,11 +509,41 @@
       <option name="project" value="LOCAL" />
       <updated>1722358596075</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="fix docker file">
+      <option name="closed" value="true" />
+      <created>1722359288269</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1722359288269</updated>
+    </task>
+    <task id="LOCAL-00044" summary="fix docker file">
+      <option name="closed" value="true" />
+      <created>1722359526223</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1722359526223</updated>
+    </task>
+    <task id="LOCAL-00045" summary="add yarn lock">
+      <option name="closed" value="true" />
+      <created>1722366672250</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1722366672250</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/src/client/index.js" />
+        <option value="$PROJECT_DIR$/scaffolder-templates/nodejs-app/skeleton/src/client/App.js" />
+      </list>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -475,7 +564,9 @@
     <MESSAGE value="use new repo" />
     <MESSAGE value="fix port numbers" />
     <MESSAGE value="remove CRA crap and make it nodejs" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove CRA crap and make it nodejs" />
+    <MESSAGE value="fix docker file" />
+    <MESSAGE value="add yarn lock" />
+    <option name="LAST_COMMIT_MESSAGE" value="add yarn lock" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
