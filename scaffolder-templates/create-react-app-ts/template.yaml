@@ -46,17 +46,12 @@ spec:
               - eros.butterflycluster.com
     - title: Create Secrets
       required:
-        - vaultToken
         - sonarQubeProjectKey
         - dockerRepoUser
         - dockerRepoPassword
         - kubeUser
         - kubePassword
       properties:
-        vaultToken:
-          title: Vault Token
-          type: string
-          description: Vault Token
         sonarQubeProjectKey:
           title: SonarQube Project Key
           type: string
@@ -112,7 +107,6 @@ spec:
       action: custom:create-vault-secrets
       input:
         vaultUrl: 'https://phobos.butterflycluster.com:8200'
-        vaultToken: ${{ parameters.vaultToken }}
         component_id: ${{ parameters.component_id }}
         secrets:
           sonarQubeProjectKey: ${{ parameters.sonarQubeProjectKey }}
