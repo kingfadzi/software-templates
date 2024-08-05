@@ -113,11 +113,11 @@ spec:
       input:
         component_id: ${{ parameters.component_id }}
         secrets:
-          sonarQubeProjectKey: ${{ parameters.sonarQubeProjectKey }}
-          dockerRepoUser: ${{ parameters.dockerRepoUser }}
-          dockerRepoPassword: ${{ parameters.dockerRepoPassword }}
-          kubeUser: ${{ parameters.kubeUser }}
-          kubePassword: ${{ parameters.kubePassword }}
+          SONARQUBE_PROJECT_KEY: ${{ parameters.SONARQUBE_PROJECT_KEY }}
+          DOCKER_REPO_USER: ${{ parameters.DOCKER_REPO_USER }}
+          DOCKER_REPO_PASSWORD: ${{ parameters.DOCKER_REPO_PASSWORD }}
+          KUBE_USER: ${{ parameters.KUBE_USER }}
+          KUBE_PASSWORD: ${{ parameters.KUBE_PASSWORD }}
 
   output:
     links:
