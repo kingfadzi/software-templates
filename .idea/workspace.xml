@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="change back to CRA">
+    <list default="true" id="0ef65f6d-b59f-4f7c-aa9b-c81b5a0ebfbf" name="Changes" comment="add secrets page to CRA">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/template.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/scaffolder-templates/create-react-app-ts/template.yaml" afterDir="false" />
     </list>
@@ -119,6 +119,8 @@
       <workItem from="1722465003072" duration="2279000" />
       <workItem from="1722467935374" duration="151000" />
       <workItem from="1722538396564" duration="1406000" />
+      <workItem from="1722733251798" duration="123000" />
+      <workItem from="1722863764396" duration="1404000" />
     </task>
     <task id="LOCAL-00001" summary="gitlab pipeline - first cut">
       <option name="closed" value="true" />
@@ -488,7 +490,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722468021198</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="add secrets page to CRA">
+      <option name="closed" value="true" />
+      <created>1722733355535</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1722733355535</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -522,7 +532,8 @@
     <MESSAGE value="fix docker file" />
     <MESSAGE value="add yarn lock" />
     <MESSAGE value="change back to CRA" />
-    <option name="LAST_COMMIT_MESSAGE" value="change back to CRA" />
+    <MESSAGE value="add secrets page to CRA" />
+    <option name="LAST_COMMIT_MESSAGE" value="add secrets page to CRA" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

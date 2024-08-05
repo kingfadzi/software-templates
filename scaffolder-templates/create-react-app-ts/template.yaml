@@ -46,32 +46,37 @@ spec:
               - eros.butterflycluster.com
     - title: Create Secrets
       required:
-        - sonarQubeProjectKey
-        - dockerRepoUser
-        - dockerRepoPassword
-        - kubeUser
-        - kubePassword
+        - SONARQUBE_API_TOKEN
+        - DOCKER_REPO_USER
+        - DOCKER_REPO_PASSWORD
+        - KUBE_USER
+        - KUBE_PASSWORD
       properties:
-        sonarQubeProjectKey:
+        SONARQUBE_API_TOKEN:
           title: SonarQube Project Key
           type: string
           description: SonarQube Project Key
-        dockerRepoUser:
+          ui:field: Secret
+        DOCKER_REPO_USER:
           title: Docker Repo User
           type: string
           description: Docker Repo User
-        dockerRepoPassword:
+          ui:field: Secret
+        DOCKER_REPO_PASSWORD:
           title: Docker Repo Password
           type: string
           description: Docker Repo Password
-        kubeUser:
+          ui:field: Secret
+        KUBE_USER:
           title: Kubernetes User
           type: string
           description: Kubernetes User
-        kubePassword:
+          ui:field: Secret
+        KUBE_PASSWORD:
           title: Kubernetes Password
           type: string
           description: Kubernetes Password
+          ui:field: Secret
   steps:
     - id: template
       name: Fetch Skeleton + Template
@@ -106,7 +111,6 @@ spec:
       name: Store Secrets in Vault
       action: custom:create-vault-secrets
       input:
-        vaultUrl: 'https://phobos.butterflycluster.com:8200'
         component_id: ${{ parameters.component_id }}
         secrets:
           sonarQubeProjectKey: ${{ parameters.sonarQubeProjectKey }}
